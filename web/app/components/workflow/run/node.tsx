@@ -92,39 +92,39 @@ const NodePanel: FC<Props> = ({ nodeInfo, hideInfo = false }) => {
                 <div className='px-3 py-[10px] bg-[#fef3f2] rounded-lg border-[0.5px] border-[rbga(0,0,0,0.05)] text-xs leading-[18px] text-[#d92d20] shadow-xs'>{nodeInfo.error}</div>
               )}
             </div>
-            {nodeInfo.inputs && (
-              <div className={cn('px-[10px] py-1', hideInfo && '!px-2 !py-0.5')}>
-                <CodeEditor
-                  readOnly
-                  title={<div>{t('workflow.common.input').toLocaleUpperCase()}</div>}
-                  language={CodeLanguage.json}
-                  value={nodeInfo.inputs}
-                  isJSONStringifyBeauty
-                />
-              </div>
-            )}
-            {nodeInfo.process_data && (
-              <div className={cn('px-[10px] py-1', hideInfo && '!px-2 !py-0.5')}>
-                <CodeEditor
-                  readOnly
-                  title={<div>{t('workflow.common.processData').toLocaleUpperCase()}</div>}
-                  language={CodeLanguage.json}
-                  value={nodeInfo.process_data}
-                  isJSONStringifyBeauty
-                />
-              </div>
-            )}
-            {nodeInfo.outputs && (
-              <div className={cn('px-[10px] py-1', hideInfo && '!px-2 !py-0.5')}>
-                <CodeEditor
-                  readOnly
-                  title={<div>{t('workflow.common.output').toLocaleUpperCase()}</div>}
-                  language={CodeLanguage.json}
-                  value={nodeInfo.outputs}
-                  isJSONStringifyBeauty
-                />
-              </div>
-            )}
+            {/*{nodeInfo.inputs && (*/}
+            {/*  <div className={cn('px-[10px] py-1', hideInfo && '!px-2 !py-0.5')}>*/}
+            {/*    <CodeEditor*/}
+            {/*      readOnly*/}
+            {/*      title={<div>{t('workflow.common.input').toLocaleUpperCase()}</div>}*/}
+            {/*      language={CodeLanguage.json}*/}
+            {/*      value={nodeInfo.inputs}*/}
+            {/*      isJSONStringifyBeauty*/}
+            {/*    />*/}
+            {/*  </div>*/}
+            {/*)}*/}
+            {/*{nodeInfo.process_data && (*/}
+            {/*  <div className={cn('px-[10px] py-1', hideInfo && '!px-2 !py-0.5')}>*/}
+            {/*    <CodeEditor*/}
+            {/*      readOnly*/}
+            {/*      title={<div>{t('workflow.common.processData').toLocaleUpperCase()}</div>}*/}
+            {/*      language={CodeLanguage.json}*/}
+            {/*      value={nodeInfo.process_data}*/}
+            {/*      isJSONStringifyBeauty*/}
+            {/*    />*/}
+            {/*  </div>*/}
+            {/*)}*/}
+            {/*{nodeInfo.outputs && (*/}
+            {/*  <div className={cn('px-[10px] py-1', hideInfo && '!px-2 !py-0.5')}>*/}
+            {/*    <CodeEditor*/}
+            {/*      readOnly*/}
+            {/*      title={<div>{t('workflow.common.output').toLocaleUpperCase()}</div>}*/}
+            {/*      language={CodeLanguage.json}*/}
+            {/*      value={nodeInfo.outputs}*/}
+            {/*      isJSONStringifyBeauty*/}
+            {/*    />*/}
+            {/*  </div>*/}
+            {/*)}*/}
           </div>
         )}
       </div>

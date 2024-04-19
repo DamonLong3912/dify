@@ -84,8 +84,8 @@ function AppCard({
   const runningStatus = isApp ? appInfo.enable_site : appInfo.enable_api
   const { app_base_url, access_token } = appInfo.site ?? {}
   const appMode = (appInfo.mode !== 'completion' && appInfo.mode !== 'workflow') ? 'chat' : appInfo.mode
-  const appUrl = `${app_base_url}/${appMode}/${access_token}`
-  const apiUrl = appInfo?.api_base_url
+  const appUrl = `${process.env.NEXT_PUBLIC_WEB_PREFIX}/${appMode}/${access_token}`
+  const apiUrl = `${process.env.NEXT_PUBLIC_WEB_PREFIX}`
 
   let bgColor = 'bg-primary-50 bg-opacity-40'
   if (cardType === 'api')
