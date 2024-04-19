@@ -23,7 +23,7 @@ const WorkflowProcessItem = ({
   data,
   grayBg,
   expand = false,
-  hideInfo = false,
+  hideInfo = true,
 }: WorkflowProcessProps) => {
   const { t } = useTranslation()
   const [collapse, setCollapse] = useState(!expand)
