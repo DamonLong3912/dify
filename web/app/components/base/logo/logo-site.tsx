@@ -10,7 +10,7 @@ const LogoSite: FC<LogoSiteProps> = ({
 }) => {
   return (
     <img
-      src='https://mbm-oss1.oss-cn-shenzhen.aliyuncs.com/OpenAI/logo.png'
+      src='/logo/logo-site.png'
       className={classNames('block w-auto h-10', className)}
       alt='logo'
     />
