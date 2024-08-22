@@ -3,9 +3,9 @@ import { useMemo, useState } from 'react'
 import { useContext } from 'use-context-selector'
 import { useTranslation } from 'react-i18next'
 import { useUnmount } from 'ahooks'
-import cn from 'classnames'
 import { RiAddLine } from '@remixicon/react'
 import { useStore as useTagStore } from './store'
+import cn from '@/utils/classnames'
 import type { HtmlContentProps } from '@/app/components/base/popover'
 import CustomPopover from '@/app/components/base/popover'
 import Divider from '@/app/components/base/divider'
@@ -68,6 +68,7 @@ const Panel = (props: PanelProps) => {
         ...tagList,
         newTag,
       ])
+      setKeywords('')
       setCreating(false)
       onCreate()
     }
@@ -123,11 +124,8 @@ const Panel = (props: PanelProps) => {
     handleValueChange()
   })
 
-  const onMouseLeave = async () => {
-    props.onClose?.()
-  }
   return (
-    <div className='relative w-full bg-white rounded-lg border-[0.5px] border-gray-200' onMouseLeave={onMouseLeave}>
+    <div className='relative w-full bg-white rounded-lg border-[0.5px] border-gray-200'>
       <div className='p-2 border-b-[0.5px] border-black/5'>
         <SearchInput placeholder={t('common.tag.selectorPlaceholder') || ''} white value={keywords} onChange={handleKeywordsChange} />
       </div>
@@ -156,7 +154,7 @@ const Panel = (props: PanelProps) => {
               <Checkbox
                 className='shrink-0'
                 checked={selectedTagIDs.includes(tag.id)}
-                onCheck={() => {}}
+                onCheck={() => { }}
               />
               <div title={tag.name} className='grow text-sm text-gray-700 leading-5 truncate'>{tag.name}</div>
             </div>
@@ -170,7 +168,7 @@ const Panel = (props: PanelProps) => {
               <Checkbox
                 className='shrink-0'
                 checked={selectedTagIDs.includes(tag.id)}
-                onCheck={() => {}}
+                onCheck={() => { }}
               />
               <div title={tag.name} className='grow text-sm text-gray-700 leading-5 truncate'>{tag.name}</div>
             </div>

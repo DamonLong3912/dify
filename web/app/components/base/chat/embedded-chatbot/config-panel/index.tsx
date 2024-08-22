@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import cn from 'classnames'
 import { useEmbeddedChatbotContext } from '../context'
 import { useThemeContext } from '../theme/theme-context'
 import { CssTransform } from '../theme/utils'
 import Form from './form'
+import cn from '@/utils/classnames'
 import Button from '@/app/components/base/button'
 import AppIcon from '@/app/components/base/app-icon'
 import { MessageDotsCircle } from '@/app/components/base/icons/src/vender/solid/communication'
@@ -48,9 +48,12 @@ const ConfigPanel = () => {
               <>
                 <div className='flex items-center h-8 text-2xl font-semibold text-gray-800'>
                   <AppIcon
+                    iconType={appData?.site.icon_type}
                     icon={appData?.site.icon}
+                    imageUrl={appData?.site.icon_url}
                     background='transparent'
                     size='small'
+                    className="mr-2"
                   />
                   {appData?.site.title}
                 </div>
