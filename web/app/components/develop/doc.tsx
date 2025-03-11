@@ -5,12 +5,16 @@ import { useTranslation } from 'react-i18next'
 import { RiListUnordered } from '@remixicon/react'
 import TemplateEn from './template/template.en.mdx'
 import TemplateZh from './template/template.zh.mdx'
+import TemplateJa from './template/template.ja.mdx'
 import TemplateAdvancedChatEn from './template/template_advanced_chat.en.mdx'
 import TemplateAdvancedChatZh from './template/template_advanced_chat.zh.mdx'
+import TemplateAdvancedChatJa from './template/template_advanced_chat.ja.mdx'
 import TemplateWorkflowEn from './template/template_workflow.en.mdx'
 import TemplateWorkflowZh from './template/template_workflow.zh.mdx'
+import TemplateWorkflowJa from './template/template_workflow.ja.mdx'
 import TemplateChatEn from './template/template_chat.en.mdx'
 import TemplateChatZh from './template/template_chat.zh.mdx'
+import TemplateChatJa from './template/template_chat.ja.mdx'
 import I18n from '@/context/i18n'
 import { LanguagesSupported } from '@/i18n/language'
 
@@ -58,6 +62,22 @@ const Doc = ({ appDetail }: IDocProps) => {
     setTimeout(extractTOC, 0)
   }, [appDetail, locale])
 
+  const handleTocClick = (e: React.MouseEvent<HTMLAnchorElement>, item: { href: string; text: string }) => {
+    e.preventDefault()
+    const targetId = item.href.replace('#', '')
+    const element = document.getElementById(targetId)
+    if (element) {
+      const scrollContainer = document.querySelector('.overflow-auto')
+      if (scrollContainer) {
+        const headerOffset = 80
+        const elementTop = element.offsetTop - headerOffset
+        scrollContainer.scrollTo({
+          top: elementTop,
+          behavior: 'smooth',
+        })
+      }
+    }
+  }
   return (
     <div className="flex">
       <div className={`fixed right-8 top-32 z-10 transition-all ${isTocExpanded ? 'w-64' : 'w-10'}`}>
@@ -79,6 +99,7 @@ const Doc = ({ appDetail }: IDocProps) => {
                     <a
                       href={item.href}
                       className="text-gray-600 hover:text-gray-900 hover:underline transition-colors duration-200"
+                      onClick={e => handleTocClick(e, item)}
                     >
                       {item.text}
                     </a>
@@ -98,16 +119,52 @@ const Doc = ({ appDetail }: IDocProps) => {
       </div>
       <article className="prose prose-xl" >
         {(appDetail?.mode === 'chat' || appDetail?.mode === 'agent-chat') && (
-          locale !== LanguagesSupported[1] ? <TemplateChatEn appDetail={appDetail} variables={variables} inputs={inputs} /> : <TemplateChatZh appDetail={appDetail} variables={variables} inputs={inputs} />
+          (() => {
+            switch (locale) {
+              case LanguagesSupported[1]:
+                return <TemplateChatZh appDetail={appDetail} variables={variables} inputs={inputs} />
+              case LanguagesSupported[7]:
+                return <TemplateChatJa appDetail={appDetail} variables={variables} inputs={inputs} />
+              default:
+                return <TemplateChatEn appDetail={appDetail} variables={variables} inputs={inputs} />
+            }
+          })()
         )}
         {appDetail?.mode === 'advanced-chat' && (
-          locale !== LanguagesSupported[1] ? <TemplateAdvancedChatEn appDetail={appDetail} variables={variables} inputs={inputs} /> : <TemplateAdvancedChatZh appDetail={appDetail} variables={variables} inputs={inputs} />
+          (() => {
+            switch (locale) {
+              case LanguagesSupported[1]:
+                return <TemplateAdvancedChatZh appDetail={appDetail} variables={variables} inputs={inputs} />
+              case LanguagesSupported[7]:
+                return <TemplateAdvancedChatJa appDetail={appDetail} variables={variables} inputs={inputs} />
+              default:
+                return <TemplateAdvancedChatEn appDetail={appDetail} variables={variables} inputs={inputs} />
+            }
+          })()
         )}
         {appDetail?.mode === 'workflow' && (
-          locale !== LanguagesSupported[1] ? <TemplateWorkflowEn appDetail={appDetail} variables={variables} inputs={inputs} /> : <TemplateWorkflowZh appDetail={appDetail} variables={variables} inputs={inputs} />
+          (() => {
+            switch (locale) {
+              case LanguagesSupported[1]:
+                return <TemplateWorkflowZh appDetail={appDetail} variables={variables} inputs={inputs} />
+              case LanguagesSupported[7]:
+                return <TemplateWorkflowJa appDetail={appDetail} variables={variables} inputs={inputs} />
+              default:
+                return <TemplateWorkflowEn appDetail={appDetail} variables={variables} inputs={inputs} />
+            }
+          })()
         )}
         {appDetail?.mode === 'completion' && (
-          locale !== LanguagesSupported[1] ? <TemplateEn appDetail={appDetail} variables={variables} inputs={inputs} /> : <TemplateZh appDetail={appDetail} variables={variables} inputs={inputs} />
+          (() => {
+            switch (locale) {
+              case LanguagesSupported[1]:
+                return <TemplateZh appDetail={appDetail} variables={variables} inputs={inputs} />
+              case LanguagesSupported[7]:
+                return <TemplateJa appDetail={appDetail} variables={variables} inputs={inputs} />
+              default:
+                return <TemplateEn appDetail={appDetail} variables={variables} inputs={inputs} />
+            }
+          })()
         )}
       </article>
     </div>

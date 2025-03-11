@@ -37,11 +37,10 @@ class WeightRerankRunner(BaseRerankRunner):
         :return:
         """
         unique_documents = []
-        doc_id = set()
+        doc_ids = set()
         for document in documents:
-            doc_id = document.metadata.get("doc_id")
-            if doc_id not in doc_id:
-                doc_id.add(doc_id)
+            if document.metadata is not None and document.metadata["doc_id"] not in doc_ids:
+                doc_ids.add(document.metadata["doc_id"])
                 unique_documents.append(document)
 
         documents = unique_documents
@@ -57,10 +56,11 @@ class WeightRerankRunner(BaseRerankRunner):
             )
             if score_threshold and score < score_threshold:
                 continue
-            document.metadata["score"] = score
-            rerank_documents.append(document)
+            if document.metadata is not None:
+                document.metadata["score"] = score
+                rerank_documents.append(document)
 
-        rerank_documents.sort(key=lambda x: x.metadata["score"], reverse=True)
+        rerank_documents.sort(key=lambda x: x.metadata["score"] if x.metadata else 0, reverse=True)
         return rerank_documents[:top_n] if top_n else rerank_documents
 
     def _calculate_keyword_score(self, query: str, documents: list[Document]) -> list[float]:
@@ -77,8 +77,9 @@ class WeightRerankRunner(BaseRerankRunner):
         for document in documents:
             # get the document keywords
             document_keywords = keyword_table_handler.extract_keywords(document.page_content, None)
-            document.metadata["keywords"] = document_keywords
-            documents_keywords.append(document_keywords)
+            if document.metadata is not None:
+                document.metadata["keywords"] = document_keywords
+                documents_keywords.append(document_keywords)
 
         # Counter query keywords(TF)
         query_keyword_counts = Counter(query_keywords)
@@ -163,7 +164,7 @@ class WeightRerankRunner(BaseRerankRunner):
         query_vector = cache_embedding.embed_query(query)
         for document in documents:
             # calculate cosine similarity
-            if "score" in document.metadata:
+            if document.metadata and "score" in document.metadata:
                 query_vector_scores.append(document.metadata["score"])
             else:
                 # transform to NumPy
